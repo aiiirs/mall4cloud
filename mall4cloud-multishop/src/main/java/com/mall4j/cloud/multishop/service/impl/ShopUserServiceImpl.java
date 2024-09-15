@@ -16,11 +16,11 @@ import com.mall4j.cloud.multishop.model.ShopUser;
 import com.mall4j.cloud.multishop.service.ShopUserService;
 import com.mall4j.cloud.multishop.vo.ShopUserVO;
 import io.seata.spring.annotation.GlobalTransactional;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -90,5 +90,10 @@ public class ShopUserServiceImpl implements ShopUserService {
     public Long getUserIdByShopId(Long shopId) {
         return shopUserMapper.getUserIdByShopId(shopId);
     }
+
+	@Override
+	public ShopUserVO getShopAdminUser(Long shopId) {
+		return shopUserMapper.getShopAdminUser(shopId);
+	}
 
 }

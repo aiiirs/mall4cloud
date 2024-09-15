@@ -30,30 +30,30 @@
         <project.encoding>UTF-8</project.encoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
 
         <!-- 核心依赖 -->
-        <spring-boot.version>2.4.2</spring-boot.version>
-        <spring-cloud.version>2020.0.2</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <spring-boot.version>3.3.0</spring-boot.version>
+        <spring-cloud.version>2023.0.2</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
 
         <!--分离出这两个东西，是为了能够在 spring cloud alibaba不更新的时候，及时更新-->
-        <seata.version>1.4.2</seata.version>
-        <nacos.version>2.0.1</nacos.version>
+        <seata.version>2.0.0</seata.version>
+        <nacos.version>2.3.2</nacos.version>
 
         <!-- 次要依赖 -->
-        <hutool-version>5.5.8</hutool-version>
-        <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
-        <pagehelper-spring-boot-starter.version>1.3.0</pagehelper-spring-boot-starter.version>
-        <jsoup.version>1.13.1</jsoup.version>
-        <orika.version>1.5.4</orika.version>
-        <captcha.version>1.2.5</captcha.version>
-        <knife4j.version>3.0.2</knife4j.version>
-        <elasticsearch.version>7.9.1</elasticsearch.version>
-        <minio.version>8.0.3</minio.version>
-        <rocketmq-springboot.version>2.2.0</rocketmq-springboot.version>
-        <weixin.version>4.0.0</weixin.version>
-        <spring-javaformat.version>0.0.22</spring-javaformat.version>
+        <hutool-version>5.8.28</hutool-version>
+        <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
+        <pagehelper-spring-boot-starter.version>2.1.0</pagehelper-spring-boot-starter.version>
+        <captcha.version>1.3.0</captcha.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <elasticsearch.version>7.17.21</elasticsearch.version>
+        <minio.version>8.2.2</minio.version>
+        <rocketmq-springboot.version>2.3.0</rocketmq-springboot.version>
+        <weixin.version>4.6.0</weixin.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <fastjson2.version>2.0.51</fastjson2.version>
+        <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
     </properties>
 
     <dependencyManagement>
@@ -75,7 +75,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!--spring cloud alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -100,10 +99,6 @@
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>com.alibaba</groupId>
                         <artifactId>druid</artifactId>
@@ -137,29 +132,31 @@
                 <version>${pagehelper-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ma.glasnost.orika</groupId>
-                <artifactId>orika-core</artifactId>
-                <version>${orika.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.anji-plus</groupId>
+                <groupId>com.anji-plus</groupId>
                 <artifactId>captcha</artifactId>
                 <version>${captcha.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
@@ -192,6 +189,22 @@
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq-springboot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -222,11 +235,6 @@
         </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>io.spring.javaformat</groupId>
-                <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>${spring-javaformat.version}</version>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
@@ -234,9 +242,11 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.encoding}</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven-resources-plugin.version}</version>
                 <configuration>

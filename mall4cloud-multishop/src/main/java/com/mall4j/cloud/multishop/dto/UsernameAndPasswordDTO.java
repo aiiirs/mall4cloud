@@ -1,29 +1,28 @@
 package com.mall4j.cloud.multishop.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author lhd
  * @date 2020/12/30
  */
-@ApiModel(value= "用户名和密码参数")
+@Schema(description = "用户名和密码参数")
 public class UsernameAndPasswordDTO {
 
     @NotBlank(message="用户名不能为空")
     @Size(max = 30)
-    @ApiModelProperty(value = "用户名",required=true)
+    @Schema(description = "用户名" ,requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
 
     @NotBlank(message="密码不能为空")
     @Size(max = 64)
-    @ApiModelProperty(value = "密码",required=true)
+    @Schema(description = "密码" ,requiredMode = Schema.RequiredMode.REQUIRED)
     private String password;
 
-    @ApiModelProperty(value = "店铺id")
+    @Schema(description = "店铺id" )
     private Long shopId;
 
     public String getUsername() {

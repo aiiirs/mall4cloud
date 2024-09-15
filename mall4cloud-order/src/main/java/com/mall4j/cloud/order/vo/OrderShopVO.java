@@ -1,6 +1,6 @@
 package com.mall4j.cloud.order.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,47 +13,47 @@ import java.util.List;
  */
 public class OrderShopVO implements Serializable {
 
-    @ApiModelProperty(value = "店铺id", required = true)
+    @Schema(description = "店铺id" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Long shopId;
 
-    @ApiModelProperty(value = "店铺名称", required = true)
+    @Schema(description = "店铺名称" , requiredMode = Schema.RequiredMode.REQUIRED)
     private String shopName;
 
-    @ApiModelProperty(value = "商品总值", required = true)
+    @Schema(description = "商品总值" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Long total;
 
-    @ApiModelProperty(value = "商品总数", required = true)
+    @Schema(description = "商品总数" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer totalNum;
 
 
-    @ApiModelProperty(value = "地址Dto", required = true)
+    @Schema(description = "地址Dto" , requiredMode = Schema.RequiredMode.REQUIRED)
     private OrderAddrVO orderAddr;
 
-    @ApiModelProperty(value = "产品信息", required = true)
+    @Schema(description = "产品信息" , requiredMode = Schema.RequiredMode.REQUIRED)
     private List<OrderItemVO> orderItems;
 
-    @ApiModelProperty(value = "订单创建时间", required = true)
+    @Schema(description = "订单创建时间" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Date createTime;
 
-    @ApiModelProperty(value = "订单付款时间", required = false)
+    @Schema(description = "订单付款时间")
     private Date payTime;
 
-    @ApiModelProperty(value = "订单发货时间", required = false)
+    @Schema(description = "订单发货时间")
     private Date deliveryTime;
 
-    @ApiModelProperty(value = "订单完成时间", required = false)
+    @Schema(description = "订单完成时间")
     private Date finallyTime;
 
-    @ApiModelProperty(value = "订单取消时间", required = false)
+    @Schema(description = "订单取消时间")
     private Date cancelTime;
 
-    @ApiModelProperty(value = "订单更新时间", required = false)
+    @Schema(description = "订单更新时间")
     private Date updateTime;
 
-    @ApiModelProperty(value = "配送类型 3：无需快递", required = true)
+    @Schema(description = "配送类型 3：无需快递" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer deliveryType;
 
-    @ApiModelProperty(value = "订单状态", required = true)
+    @Schema(description = "订单状态" , requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer status;
 
     public Long getShopId() {

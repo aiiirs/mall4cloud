@@ -13,13 +13,13 @@ import com.mall4j.cloud.multishop.service.ShopDetailService;
 import com.mall4j.cloud.multishop.service.ShopUserService;
 import com.mall4j.cloud.multishop.vo.ShopUserVO;
 import com.mall4j.cloud.multishop.vo.ShopUserSimpleVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import ma.glasnost.orika.MapperFacade;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import com.mall4j.cloud.common.util.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Objects;
 
 /**
@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 @RequestMapping(value = "/m/shop_user")
 @RestController("multishopShopUserController")
-@Api(tags = "店铺用户信息")
+@Tag(name = "店铺用户信息")
 public class ShopUserController {
 
 	@Autowired
@@ -37,11 +37,9 @@ public class ShopUserController {
 	@Autowired
 	private ShopDetailService shopDetailService;
 
-	@Autowired
-	private MapperFacade mapperFacade;
 
 	@GetMapping("/info")
-	@ApiOperation(value = "登陆店铺用户信息", notes = "获取当前登陆店铺用户的用户信息")
+	@Operation(summary = "登陆店铺用户信息" , description = "获取当前登陆店铺用户的用户信息")
 	public ServerResponseEntity<ShopUserSimpleVO> info() {
 		UserInfoInTokenBO userInfoInTokenBO = AuthUserContext.get();
 		ShopUserSimpleVO shopUserSimple = new ShopUserSimpleVO();
@@ -53,7 +51,7 @@ public class ShopUserController {
 	}
 
 	@GetMapping("/page")
-	@ApiOperation(value = "店铺用户列表", notes = "获取店铺用户列表")
+	@Operation(summary = "店铺用户列表" , description = "获取店铺用户列表")
 	public ServerResponseEntity<PageVO<ShopUserVO>> page(@Valid PageDTO pageDTO, String nickName) {
 		UserInfoInTokenBO userInfoInTokenBO = AuthUserContext.get();
 		PageVO<ShopUserVO> shopUserPage = shopUserService.pageByShopId(pageDTO, userInfoInTokenBO.getTenantId(), nickName);
@@ -61,15 +59,15 @@ public class ShopUserController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "获取店铺用户信息", notes = "根据用户id获取店铺用户信息")
+	@Operation(summary = "获取店铺用户信息" , description = "根据用户id获取店铺用户信息")
 	public ServerResponseEntity<ShopUserVO> detail(@RequestParam Long shopUserId) {
 		return ServerResponseEntity.success(shopUserService.getByUserId(shopUserId));
 	}
 
 	@PostMapping
-	@ApiOperation(value = "保存店铺用户信息", notes = "保存店铺用户信息")
+	@Operation(summary = "保存店铺用户信息" , description = "保存店铺用户信息")
 	public ServerResponseEntity<Void> save(@Valid @RequestBody ShopUserDTO shopUserDTO) {
-		ShopUser shopUser = mapperFacade.map(shopUserDTO, ShopUser.class);
+		ShopUser shopUser = BeanUtil.map(shopUserDTO, ShopUser.class);
 		shopUser.setShopUserId(null);
 		shopUser.setShopId(AuthUserContext.get().getTenantId());
 		shopUser.setHasAccount(0);
@@ -78,9 +76,9 @@ public class ShopUserController {
 	}
 
 	@PutMapping
-	@ApiOperation(value = "更新店铺用户信息", notes = "更新店铺用户信息")
+	@Operation(summary = "更新店铺用户信息" , description = "更新店铺用户信息")
 	public ServerResponseEntity<Void> update(@Valid @RequestBody ShopUserDTO shopUserDTO) {
-		ShopUser shopUser = mapperFacade.map(shopUserDTO, ShopUser.class);
+		ShopUser shopUser = BeanUtil.map(shopUserDTO, ShopUser.class);
 		ShopUserVO dbShopUser = shopUserService.getByUserId(shopUserDTO.getShopUserId());
 		if (!Objects.equals(dbShopUser.getShopId(), AuthUserContext.get().getTenantId())) {
 			return ServerResponseEntity.fail(ResponseEnum.UNAUTHORIZED);
@@ -91,7 +89,7 @@ public class ShopUserController {
 	}
 
 	@DeleteMapping
-	@ApiOperation(value = "删除店铺用户信息", notes = "根据店铺用户id删除店铺用户信息")
+	@Operation(summary = "删除店铺用户信息" , description = "根据店铺用户id删除店铺用户信息")
 	public ServerResponseEntity<Void> delete(@RequestParam Long shopUserId) {
 		ShopUserVO dbShopUser = shopUserService.getByUserId(shopUserId);
 		if (!Objects.equals(dbShopUser.getShopId(), AuthUserContext.get().getTenantId())) {

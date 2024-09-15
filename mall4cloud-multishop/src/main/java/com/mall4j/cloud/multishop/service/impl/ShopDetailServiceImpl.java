@@ -27,6 +27,7 @@ import com.mall4j.cloud.common.util.PrincipalUtil;
 import com.mall4j.cloud.multishop.constant.ShopStatus;
 import com.mall4j.cloud.multishop.constant.ShopType;
 import com.mall4j.cloud.multishop.dto.ShopDetailDTO;
+import com.mall4j.cloud.multishop.dto.UpdateShopPasswordDTO;
 import com.mall4j.cloud.multishop.mapper.ShopDetailMapper;
 import com.mall4j.cloud.multishop.model.ShopDetail;
 import com.mall4j.cloud.multishop.model.ShopUser;
@@ -34,8 +35,9 @@ import com.mall4j.cloud.multishop.service.ShopDetailService;
 import com.mall4j.cloud.api.multishop.vo.ShopDetailVO;
 import com.mall4j.cloud.multishop.service.ShopUserService;
 import com.mall4j.cloud.multishop.vo.ShopDetailAppVO;
+import com.mall4j.cloud.multishop.vo.ShopUserVO;
 import io.seata.spring.annotation.GlobalTransactional;
-import ma.glasnost.orika.MapperFacade;
+import com.mall4j.cloud.common.util.BeanUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,8 +63,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     private SearchSpuFeignClient searchSpuFeignClient;
     @Autowired
     private ShopUserService shopUserService;
-    @Autowired
-    private MapperFacade mapperFacade;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -136,7 +137,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     @GlobalTransactional
     public void applyShop(ShopDetailDTO shopDetailDTO) {
         checkShopInfo(shopDetailDTO);
-        ShopDetail newShopDetail = mapperFacade.map(shopDetailDTO, ShopDetail.class);
+        ShopDetail newShopDetail = BeanUtil.map(shopDetailDTO, ShopDetail.class);
         // 申请开店
         newShopDetail.setShopStatus(ShopStatus.OPEN.value());
         newShopDetail.setType(ShopType.STOP.value());
@@ -172,7 +173,7 @@ public class ShopDetailServiceImpl implements ShopDetailService {
             throw new Mall4cloudException("该用户已经创建过店铺");
         }
         // 保存店铺
-        ShopDetail shopDetail = mapperFacade.map(shopDetailDTO, ShopDetail.class);
+        ShopDetail shopDetail = BeanUtil.map(shopDetailDTO, ShopDetail.class);
         shopDetail.setShopStatus(ShopStatus.OPEN.value());
         shopDetailMapper.save(shopDetail);
         // 保存商家账号
@@ -210,6 +211,19 @@ public class ShopDetailServiceImpl implements ShopDetailService {
     public Boolean checkShopName(String shopName) {
         int count = shopDetailMapper.countShopName(shopName, null);
         return count <= 0;
+    }
+
+    @Override
+    public void resetShopPassword(UpdateShopPasswordDTO updateShopPasswordDTO) {
+        if (!Objects.equals(updateShopPasswordDTO.getPassword(), updateShopPasswordDTO.getConfirmPsw())) {
+            throw new Mall4cloudException("密码不一致");
+        }
+        ShopUserVO shopAdminUser = shopUserService.getShopAdminUser(updateShopPasswordDTO.getShopId());
+        AuthAccountDTO authAccountDTO = new AuthAccountDTO();
+        authAccountDTO.setPassword(updateShopPasswordDTO.getPassword());
+        authAccountDTO.setUserId(shopAdminUser.getShopUserId());
+        authAccountDTO.setSysType(SysTypeEnum.MULTISHOP.value());
+        accountFeignClient.updateShopPassword(authAccountDTO);
     }
 
     /**

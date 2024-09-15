@@ -31,10 +31,6 @@ CREATE TABLE `area` (
   KEY `parent_id` (`parent_id`) USING BTREE COMMENT '上级id'
 ) ENGINE=InnoDB AUTO_INCREMENT=659041 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='省市区地区信息';
 
-
-INSERT  INTO `area`(`area_id`,`area_name`,`parent_id`,`level`) VALUES (44,'广东省',0,1),(4401,'广州市',44,2),(4403,'深圳市',44,2),(4406,'佛山市',44,2),(440103,'荔湾区',4401,3),(440104,'越秀区',4401,3),(440105,'海珠区',4401,3),(440106,'天河区',4401,3),(440111,'白云区',4401,3),(440112,'黄埔区',4401,3),(440113,'番禺区',4401,3),(440114,'花都区',4401,3),(440115,'南沙区',4401,3),(440117,'从化区',4401,3),(440118,'增城区',4401,3),(440303,'罗湖区',4403,3),(440304,'福田区',4403,3),(440305,'南山区',4403,3),(440306,'宝安区',4403,3),(440307,'龙岗区',4403,3),(440308,'盐田区',4403,3),(440309,'龙华区',4403,3),(440310,'坪山区',4403,3),(440311,'光明区',4403,3),(440604,'禅城区',4406,3),(440605,'南海区',4406,3),(440606,'顺德区',4406,3),(440607,'三水区',4406,3),(440608,'高明区',4406,3);
-
-
 /*Table structure for table `undo_log` */
 
 DROP TABLE IF EXISTS `undo_log`;
@@ -42,15 +38,15 @@ DROP TABLE IF EXISTS `undo_log`;
 CREATE TABLE `undo_log` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `branch_id` bigint NOT NULL,
-  `xid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `context` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `xid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `context` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `rollback_info` longblob NOT NULL,
   `log_status` int NOT NULL,
   `log_created` datetime NOT NULL,
   `log_modified` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `user` */
 

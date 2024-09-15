@@ -3,6 +3,8 @@
 
 一个基于Spring Cloud、Nacos、Seata、Mysql、Redis、RocketMQ、canal、ElasticSearch、minio的微服务B2B2C电商商城系统，采用主流的互联网技术架构、全新的UI设计、支持集群部署、服务注册和发现以及拥有完整的订单流程等，代码完全开源，没有任何二次封装，是一个非常适合二次开发的电商平台系统。
 
+## Spring以及VUE官方宣布，SpringBoot2与Vue2已在2023年底停止维护。新项目建议使用SpringBoot3+Vue3的组合，本商城已完成升级!!!
+
 
 ## 前言
 
@@ -12,48 +14,54 @@
 
 这代码有没有文档呀？ 当然有啦，你已经下载了，在doc这个文件夹上，实在不知道，我就给链接出来咯：
 
-gitee：https://gitee.com/gz-yami/mall4cloud/tree/master/doc
+gitee：[https://gitee.com/gz-yami/mall4cloud/tree/master/doc](https://gitee.com/gz-yami/mall4cloud/tree/master/doc)
+
+**开发环境搭建视频（推荐先看下文档再看视频）：[https://www.bilibili.com/video/BV1TK411C7aV](https://www.bilibili.com/video/BV1TK411C7aV)** 
+
+有声音了。如果视频对你有用，记得点赞投币噢。 
 
 本项目是一个极度遵守阿里巴巴代码规约的项目，以下是代码规约扫描结果
 
 
 ![阿里代码规约扫描结果](doc/img/readme/阿里代码规约扫描结果.png)
 
-具体目录结构和代码规范，可以查看 https://gitee.com/gz-yami/mall4cloud/tree/master/doc/%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84
+具体目录结构和代码规范，可以查看 [https://gitee.com/gz-yami/mall4cloud/tree/master/doc/%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84](https://gitee.com/gz-yami/mall4cloud/tree/master/doc/%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84)
 
 ## 授权
 
 除开源版本外，本商城还提供商业版本的商城，欲知详情，请访问官网。
 
-商城官网：https://www.mall4j.com
+商城官网：[https://www.mall4j.com](https://www.mall4j.com)
 
-商城使用 AGPLv3 开源，请遵守 AGPLv3 的相关条款，或者联系作者获取商业授权(https://www.mall4j.com)
+商城使用 AGPLv3 开源，请遵守 AGPLv3 的相关条款，或者联系作者获取商业授权([https://www.mall4j.com](https://www.mall4j.com))
 
 ## 项目链接
 
-JAVA后台：https://gitee.com/gz-yami/mall4cloud
+JAVA后台：[https://gitee.com/gz-yami/mall4cloud](https://gitee.com/gz-yami/mall4cloud)
 
-平台端：https://gitee.com/gz-yami/mall4cloud-platform
+平台端：[https://gitee.com/gz-yami/mall4cloud-platform](https://gitee.com/gz-yami/mall4cloud-platform)
 
-商家端：https://gitee.com/gz-yami/mall4cloud-multishop
+商家端：[https://gitee.com/gz-yami/mall4cloud-multishop](https://gitee.com/gz-yami/mall4cloud-multishop)
 
-uni-app：https://gitee.com/gz-yami/mall4cloud-uniapp
+uni-app：[https://gitee.com/gz-yami/mall4cloud-uniapp](https://gitee.com/gz-yami/mall4cloud-uniapp)
 
 ## 演示地址
 
 商业版演示地址：
 
-pc端：https://cloud-pc.mall4j.com
+pc端：[https://cloud-pc.mall4j.com](https://cloud-pc.mall4j.com)
 
-H5端：https://h5.mall4j.com/cloud
+H5端：[https://h5.mall4j.com/cloud](https://h5.mall4j.com/cloud)
 
-小程序：微信搜索 “mall4j微服务版”
+商业版小程序演示
+
+![输入图片说明](doc/img/readme/%E7%99%BD%E6%B4%9E%E7%89%88%E5%B0%8F%E7%A8%8B%E5%BA%8F.png)
 
 ## 目录结构规范
 
 我们也有自己的目录结构
 
-![img](https://gitee.com/gz-yami/mall4cloud/raw/master/doc/img/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%92%8C%E8%A7%84%E8%8C%83/%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%82.png)
+![img](./doc/img/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%92%8C%E8%A7%84%E8%8C%83/%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%82.png)
 
 - VO（View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。
 - DTO（Data Transfer Object）：数据传输对象，前端像后台进行传输的对象，类似于param。
@@ -119,16 +127,16 @@ mall4cloud
 
 ## 商城部署后 API 地址
 
-| 服务                                                 | 地址                  |
-| ---------------------------------------------------- | --------------------- |
-| mall4cloud-gatway 网关服务                           | http://127.0.0.1:9000 |
+| 服务                                                 | 地址                    |
+| ---------------------------------------------------- |-----------------------|
+| mall4cloud-gatway 网关服务                           | http://127.0.0.1:8000 |
 | mall4cloud-auth  授权校验服务                        | http://127.0.0.1:9101 |
 | mall4cloud-biz     业务代码服务（如图片上传/短信等） | http://127.0.0.1:9000 |
 | mall4cloud-leaf   基于美团leaf的生成id服务           | http://127.0.0.1:9100 |
 | mall4cloud-multishop 商家服务                        | http://127.0.0.1:9103 |
 | mall4cloud-order         订单服务                    | http://127.0.0.1:9106 |
 | mall4cloud-payment   支付服务                        | http://127.0.0.1:9113 |
-| mall4cloud-product    商品服务                       | http://127.0.0.1:9112 |
+| mall4cloud-product    商品服务                       | http://127.0.0.1:9114 |
 | mall4cloud-rbac          用户角色服务                | http://127.0.0.1:9102 |
 | mall4cloud-search      搜索服务                      | http://127.0.0.1:9108 |
 | mall4cloud-user          用户服务                    | http://127.0.0.1:9105 |
@@ -145,13 +153,13 @@ mall4cloud
 
 - 平台端
 
-  ![image-20210705152109738](doc/img/readme/image-20210705152109738.png)
+  ![](doc/img/readme/image-20231130110607548.png)
 
 - 商家端
 
-  ![image-20210705151729559](doc/img/readme/image-20210705151729559.png)
+  ![image-20210705151729559](doc/img/readme/image-20231130112350296.png)
 
-  ![image-20210705151847270](doc/img/readme/image-20210705151847270.png)
+  ![image-20210705151847270](doc/img/readme/image-20231130112429089.png)
 
 ### 2.小程序截图
 
@@ -163,17 +171,19 @@ mall4cloud
 
 
 ## 提交反馈
-- Mall4j官网 https://www.mall4j.com
+- Mall4j官网 [https://www.mall4j.com](https://www.mall4j.com)
 - mall4cloud开源技术QQ群：561496886
 - 如需购买商业版源码，请联系商务微信
 
-  ![输入图片说明](https://19838323.s21i.faiusr.com/4/4/ABUIABAEGAAgksmNlAYojomK2gIwrAI4rAI!160x160.png)
+![输入图片说明](https://gitee.com/gz-yami/mall4j/raw/master/screenshot/%E5%95%86%E5%8A%A1%E4%BA%8C%E7%BB%B4%E7%A0%81.png)
 
 
 
 ## springboot版本商城请点击
-https://gitee.com/gz-yami/mall4j
+[https://gitee.com/gz-yami/mall4j](https://gitee.com/gz-yami/mall4j)
 
 ## 你的点赞鼓励，是我们前进的动力~
 ## 你的点赞鼓励，是我们前进的动力~
 ## 你的点赞鼓励，是我们前进的动力~
+
+## 更多信息请查看官网 [https://www.mall4j.com](https://www.mall4j.com)
